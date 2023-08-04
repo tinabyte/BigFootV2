@@ -1,0 +1,112 @@
+/* App.css */
+@import '~leaflet/dist/leaflet.css';
+
+body {
+  margin: 0;
+  background-color: beige;
+
+}
+
+.App {
+  background-color: #38041c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.animation_layer.parallax {
+  position: fixed; /* Change the position to 'fixed' for the parallax effect to work */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-image: url(./elements/stars.png);
+}
+
+
+.animation, .animation_layer {
+	height: 1000px;
+}
+
+.animation {
+  display: block;
+	position: relative;
+	z-index: 10;
+}
+
+
+
+.animation_layer {
+	background-position: bottom center;
+	background-size: auto 1038px;
+	background-repeat: repeat-x;
+	width: 100%;
+	position: absolute;
+}
+.animation_layer.parallax {
+	position: fixed;
+}
+
+#blackscreen{
+  background-image: url(./elements/blackscreen.png);
+}
+
+#stars {
+  background-image: url(./elements/stars.png);
+  size-adjust: 50%;
+}
+
+#moon {
+  background-image: url(./elements/moon.png);
+  size-adjust: 50%;
+}
+
+#mountain1 {
+  background-image: url(./elements/mountains_behind.png);
+}
+#background{
+  background-image: url(./elements/background.png);
+}
+#cloud {
+  background-image: url(./elements/cloud.png);
+  background-position: 0 0; /* Start the cloud at the leftmost position */
+  background-repeat: repeat-x; /* Repeat the cloud horizontally */
+}
+
+#bigFoot{
+  background-image: url(./elements/bigFF.png);
+} 
+
+#scrollText{
+  background-image: url(./elements/scrollext.png);
+}
+
+/* Apply styles to the navigation bar */
+nav {
+  background-color: #eee;
+  padding: 10px 0;
+}
+
+
+
+/* Apply styles to the map container */
+.map-container {
+  height: 700px; /* Set an appropriate height for your map */
+  width: 700%;
+  border-radius: 20px;
+}
+
+.mapStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150%;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-right: 20px;
+  margin-bottom: 120px;
+}

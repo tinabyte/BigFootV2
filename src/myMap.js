@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import Papa from "papaparse";
 // import data from "./bfro_locations.csv";
-import data from "./testt.csv";
+import data from "./points.csv";
 import {
   MapContainer,
   TileLayer,

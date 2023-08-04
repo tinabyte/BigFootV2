@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { useEffect, useState } from "react";
-import data from "./bfro_locations.csv";
+// import data from "./bfro_locations.csv";
 import MyMap from "./myMap"; // Path to MyMap.js
 import "./App.css";
 import { Link } from "react-scroll";
@@ -11,32 +11,6 @@ import bigFoot from "./elements/bigFF.png";
 import Papa from "papaparse";
 
 function App() {
-  const [parsedData, setParsedData] = useState([]);
-
-  useEffect(() => {
-    const fetchParseData = async () => {
-      Papa.parse(data, {
-        download: true,
-        delimiter: ",",
-        complete: (result) => {
-          setParsedData(result.data);
-        },
-      });
-    };
-    fetchParseData();
-  }, []);
-
-  const longitudeColumnIndex = 4; // Replace with the actual longitude column index
-  const latitudeColumnIndex = 5; // Replace with the actual latitude column index
-
-  const longitudeArray = [];
-  const latitudeArray = [];
-
-  parsedData.forEach((row) => {
-    longitudeArray.push(row[longitudeColumnIndex]);
-    latitudeArray.push(row[latitudeColumnIndex]);
-  });
-
   return (
     <div className="App">
       <Parallax pages={2} style={{ top: "0", left: "0" }} className="animation">
@@ -68,7 +42,6 @@ function App() {
         </ParallaxLayer>
 
         <ParallaxLayer offset={1} speed={6}>
-          <h1>{longitudeArray[4]}</h1>
           <h1>placeholder for other necessary data</h1>
         </ParallaxLayer>
         {/* WORK ON THE MAP HERE, THE MAP IS HERE!! */}

@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 //   useMap,
 // } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import {useMapEvent, useMapEvents} from 'react-leaflet/hooks'
+import { useMapEvent, useMapEvents } from "react-leaflet/hooks";
 import Papa from "papaparse";
 // import data from "./bfro_locations.csv";
 import data from "./points.csv";
@@ -30,12 +30,10 @@ import { loadCSVData } from "./data_processing";
 //   return null;
 // };
 const initialMarkers = [
-  { lat: 40.7128, lng: -74.006, time:0}, // New York City
+  { lat: 40.7128, lng: -74.006, time: 0 }, // New York City
   // { lat: 34.0522, lng: -118.2437 }, // Los Angeles
   // { lat: 41.8781, lng: -87.6298 }, // Chicago
 ];
-
-
 
 const MyMap = () => {
   const [mapCenter, setMapCenter] = useState([40.7128, -74.006]); // Initial position
@@ -45,8 +43,8 @@ const MyMap = () => {
   const [edges, setEdges] = useState([]);
   const [time, setTime] = useState(0);
   const handleRightClick = (e) => {
-  // Handle right-click event
-  // You can add your custom logic for right-click here if needed
+    // Handle right-click event
+    // You can add your custom logic for right-click here if needed
     console.log("Right-click event:", e);
   };
   const handleLeftClick = () => {
@@ -57,9 +55,7 @@ const MyMap = () => {
 
     // Call the KNN algorithm and draw the K-nearest neighbors
     const k = 3; // Replace with your desired K value
-    drawKNearestNeighbors({lat: 40.7128, lng: -74.006}, k);
-
-
+    drawKNearestNeighbors({ lat: 40.7128, lng: -74.006 }, k);
   };
 
   const drawKNearestNeighbors = (clickedPoint, k) => {
@@ -88,37 +84,6 @@ const MyMap = () => {
       })
     );
   };
-  //   useEffect(() => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         (position) => {
-  //           const lat = position.coords.latitude;
-  //           const lon = position.coords.longitude;
-
-  //           setMapCenter([lat, lon]); // Update map center
-  //         },
-  //         (error) => {
-  //           console.log(`Error: ${error.message}`);
-  //         }
-  //       );
-  //     } else {
-  //       console.log("Geolocation is not supported by this browser.");
-  //     }
-  //     loadCSVData()
-  //       .then((data) => {
-  //         const validData = data.filter(
-  //           (sighting) =>
-  //             typeof sighting.latitude === "number" &&
-  //             typeof sighting.longitude === "number" &&
-  //             !isNaN(sighting.latitude) &&
-  //             !isNaN(sighting.longitude)
-  //         );
-  //         setBigfootSightings(validData);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error loading CSV data:", error);
-  //       });
-  //   }, []);
 
   const [parsedData, setParsedData] = useState([]);
 
@@ -137,54 +102,46 @@ const MyMap = () => {
 
   const longitudeColumnIndex = 5; // Replace with the actual longitude column index
   const latitudeColumnIndex = 4; // Replace with the actual latitude column index
+  const descriptionColumnIndex = 1;
 
-  const longitudeArray = [
-    -142.9, -132.7982, -132.8202, -141.5667, -149.7853, -141.3165, -147.8142,
-    -145.3427, -85.16235, -87.32655, -86.4559, -86.66465, -87.02025, -87.50905,
-    -87.1105, -88.17885, -88.08305, -87.45876, -87.96095, -86.6333, -87.00665,
-    -87.09069, -88.14999, -87.35664, -87.31821, -86.52105, -85.4258, -86.64066,
-    -86.4664, -86.7891, -87.24547, -86.99782, -85.705,
-  ];
-  const latitudeArray = [
-    61.5, 55.1872, 55.2035, 62.9375, 61.0595, 62.77335, 64.89139, 61.96802,
-    32.31435, 33.28375, 34.95605, 34.5422, 34.9263, 34.80405, 34.92855,
-    33.13195, 31.4515, 33.97575, 31.58255, 34.4881, 34.6802, 31.16, 33.13,
-    33.21145, 33.26035, 34.7325, 32.6218, 33.3674, 33.6205, 33.8132, 32.30673,
-    31.00002, 32.43,
-  ];
+  const longitudeArray = [];
+  const latitudeArray = [];
+  const descriptionArray = [];
 
   parsedData.forEach((row) => {
     longitudeArray.push(row[longitudeColumnIndex]);
     latitudeArray.push(row[latitudeColumnIndex]);
+    descriptionArray.push(row[descriptionColumnIndex]);
   });
   const slicedLongitudeArray = longitudeArray.slice(1);
   const slicedLatitudeArray = latitudeArray.slice(1);
+  const slicedDescriptionArray = descriptionArray.slice(1);
   let bit = true;
   function MyComponent() {
-  const map = useMapEvent('click', () => {
-    //map.setView([50.5, 30.5], map.getZoom())
-    if (bit) {
-      const newEdges = [
-        {lat: 40.8959, lng: -74.2918},
-        {lat: 40.77545, lng: -74.3516},
-        {lat: 40.478, lng: -74.4611},
-        {lat: 40.9934, lng: -74.3249},
-        {lat: 40.93552, lng: -74.49518},
-        {lat: 41.06945, lng: -74.15562}
-      ];
-      setEdges(newEdges);
-      handleLeftClick();
-      console.log(edges);
-      setTime(.1)
-    }
-  })
-  return null
-}
+    const map = useMapEvent("click", () => {
+      //map.setView([50.5, 30.5], map.getZoom())
+      if (bit) {
+        const newEdges = [
+          { lat: 40.8959, lng: -74.2918 },
+          { lat: 40.77545, lng: -74.3516 },
+          { lat: 40.478, lng: -74.4611 },
+          { lat: 40.9934, lng: -74.3249 },
+          { lat: 40.93552, lng: -74.49518 },
+          { lat: 41.06945, lng: -74.15562 },
+        ];
+        setEdges(newEdges);
+        handleLeftClick();
+        console.log(edges);
+        setTime(0.1);
+      }
+    });
+    return null;
+  }
   return (
     <MapContainer
       center={mapCenter}
       zoom={zoom}
-      style={{ height: "80vh", width: "100%" }}
+      style={{ height: "100vh", width: "65%" }}
     >
       {/*<ChangeView center={mapCenter} zoom={zoom} />*/}
       <TileLayer
@@ -210,7 +167,8 @@ const MyMap = () => {
           <Popup>
             <h2>Marker {index + 1}</h2>
             <p>
-              Latitude: {lat}, Longitude: {longitudeArray[index]}
+              Latitude: {lat}, Longitude: {longitudeArray[index]},
+              {descriptionArray[index]}
             </p>
           </Popup>
         </CircleMarker>
@@ -230,9 +188,16 @@ const MyMap = () => {
           </Popup>
         </CircleMarker>
       ))}
-      <MyComponent/>
+      <MyComponent />
       {edges.map((edge, index) => (
-        <Polyline key={index} positions={[[edge.lat, edge.lng], [40.7128, -74.006]]} color="blue" />
+        <Polyline
+          key={index}
+          positions={[
+            [edge.lat, edge.lng],
+            [40.7128, -74.006],
+          ]}
+          color="blue"
+        />
       ))}
     </MapContainer>
   );

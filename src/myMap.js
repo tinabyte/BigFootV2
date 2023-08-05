@@ -30,7 +30,7 @@ const ChangeView = ({ center, zoom }) => {
 };
 
 const MyMap = () => {
-  const [mapCenter, setMapCenter] = useState([40.7128, -74.006]); // Initial position
+  const [mapCenter, setMapCenter] = useState([29.6481, -82.3437]); // Initial position
   const zoom = 13;
   const [bigfoot_sightings, setBigfootSightings] = useState([]);
 
@@ -91,6 +91,8 @@ const MyMap = () => {
     longitudeArray.push(row[longitudeColumnIndex]);
     latitudeArray.push(row[latitudeColumnIndex]);
   });
+  const slicedLongitudeArray = longitudeArray.slice(1);
+  const slicedLatitudeArray = latitudeArray.slice(1);
 
   return (
     <MapContainer

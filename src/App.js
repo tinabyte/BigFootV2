@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { useEffect, useState } from "react";
-// import data from "./bfro_locations.csv";
+
 import MyMap from "./myMap"; // Path to MyMap.js
 import "./App.css";
 import { Link } from "react-scroll";

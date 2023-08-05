@@ -38,7 +38,7 @@ const initialMarkers = [
 
 
 const MyMap = () => {
-  const [mapCenter, setMapCenter] = useState([40.7128, -74.006]); // Initial position
+  const [mapCenter, setMapCenter] = useState([29.6481, -82.3437]); // Initial position
   const zoom = 13;
   const [bigfoot_sightings, setBigfootSightings] = useState([]);
   const [markers, setMarkers] = useState(initialMarkers);
@@ -137,20 +137,8 @@ const MyMap = () => {
   const longitudeColumnIndex = 5; // Replace with the actual longitude column index
   const latitudeColumnIndex = 4; // Replace with the actual latitude column index
 
-  const longitudeArray = [
-    -142.9, -132.7982, -132.8202, -141.5667, -149.7853, -141.3165, -147.8142,
-    -145.3427, -85.16235, -87.32655, -86.4559, -86.66465, -87.02025, -87.50905,
-    -87.1105, -88.17885, -88.08305, -87.45876, -87.96095, -86.6333, -87.00665,
-    -87.09069, -88.14999, -87.35664, -87.31821, -86.52105, -85.4258, -86.64066,
-    -86.4664, -86.7891, -87.24547, -86.99782, -85.705,
-  ];
-  const latitudeArray = [
-    61.5, 55.1872, 55.2035, 62.9375, 61.0595, 62.77335, 64.89139, 61.96802,
-    32.31435, 33.28375, 34.95605, 34.5422, 34.9263, 34.80405, 34.92855,
-    33.13195, 31.4515, 33.97575, 31.58255, 34.4881, 34.6802, 31.16, 33.13,
-    33.21145, 33.26035, 34.7325, 32.6218, 33.3674, 33.6205, 33.8132, 32.30673,
-    31.00002, 32.43,
-  ];
+  const longitudeArray = [];
+  const latitudeArray = [];
 
   parsedData.forEach((row) => {
     longitudeArray.push(row[longitudeColumnIndex]);

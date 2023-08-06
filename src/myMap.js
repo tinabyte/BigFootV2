@@ -35,15 +35,6 @@ const initialMarkers = [
   // { lat: 34.0522, lng: -118.2437 }, // Los Angeles
   // { lat: 41.8781, lng: -87.6298 }, // Chicago
 ];
-const testing = [
-  { lat: 41.08335, lng: -74.321 },
-  { lat: 40.77545, lng: -74.3516 },
-  { lat:  41.01941, lng: -74.57013 },
-  { lat: 41.02176, lng: -74.53322 },
-  { lat: 40.9575, lng: -74.45995 },
-  { lat: 41.06945, lng: -74.15562 },
-  {lat:  40.9575, lng: -74.45995},
-]
 
 const MyMap = () => {
   const [mapCenter, setMapCenter] = useState([40.7128, -74.006]); // Initial position
@@ -52,7 +43,7 @@ const MyMap = () => {
   const [markers, setMarkers] = useState(initialMarkers);
   const [edges, setEdges] = useState([]);
   const [time, setTime] = useState(0);
-  const [time2, setTime2] = useState(0);
+  const [testing, setTesting] = useState([]);
   const handleRightClick = (e) => {
     // Handle right-click event
     // You can add your custom logic for right-click here if needed
@@ -161,6 +152,16 @@ const MyMap = () => {
           { lat: 41.06945, lng: -74.15562 },
           {lat: 40.9427, lng: -74.46155},
         ];
+        const testing2 = [
+          { lat: 41.08335, lng: -74.321 },
+          { lat: 40.77545, lng: -74.3516 },
+          { lat:  41.01941, lng: -74.57013 },
+          { lat: 41.02176, lng: -74.53322 },
+          { lat: 40.9575, lng: -74.45995 },
+          { lat: 41.06945, lng: -74.15562 },
+          {lat:  40.9575, lng: -74.45995},
+        ];
+        setTesting(testing2);
         setEdges(testEdges);
         handleLeftClick();
         console.log(edges);

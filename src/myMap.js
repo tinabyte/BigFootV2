@@ -30,10 +30,20 @@ import { loadCSVData } from "./data_processing";
 //   return null;
 // };
 const initialMarkers = [
-  { lat: 40.7128, lng: -74.006, time: 0 }, // New York City
+  { lat: 40.7128, lng: -74.006, time: 0 }, // New York City,
+  {lat : 29.6446, lng: -82.3535, time: 0},
   // { lat: 34.0522, lng: -118.2437 }, // Los Angeles
   // { lat: 41.8781, lng: -87.6298 }, // Chicago
 ];
+const testing = [
+  { lat: 41.08335, lng: -74.321 },
+  { lat: 40.77545, lng: -74.3516 },
+  { lat:  41.01941, lng: -74.57013 },
+  { lat: 41.02176, lng: -74.53322 },
+  { lat: 40.9575, lng: -74.45995 },
+  { lat: 41.06945, lng: -74.15562 },
+  {lat:  40.9575, lng: -74.45995},
+]
 
 const MyMap = () => {
   const [mapCenter, setMapCenter] = useState([40.7128, -74.006]); // Initial position
@@ -42,11 +52,31 @@ const MyMap = () => {
   const [markers, setMarkers] = useState(initialMarkers);
   const [edges, setEdges] = useState([]);
   const [time, setTime] = useState(0);
+  const [time2, setTime2] = useState(0);
   const handleRightClick = (e) => {
     // Handle right-click event
     // You can add your custom logic for right-click here if needed
     console.log("Right-click event:", e);
   };
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const radlat1 = (Math.PI * lat1) / 180;
+  const radlat2 = (Math.PI * lat2) / 180;
+  const theta = lon1 - lon2;
+  const radtheta = (Math.PI * theta) / 180;
+  let dist =
+    Math.sin(radlat1) * Math.sin(radlat2) +
+    Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist);
+  dist = (dist * 180) / Math.PI;
+  dist = dist * 60 * 1.1515; // Distance in miles
+  return dist;
+};
+  const bfs = () =>{
+    {edges.map((edge, val) => {
+      calculateDistance(40.7128, edge.lat, -74.006, edge.lng);
+    })}
+
+  }
   const handleLeftClick = () => {
     //Handle left-click event
     // const { lat, lng } = e.latlng;
@@ -54,8 +84,9 @@ const MyMap = () => {
     // setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
 
     // Call the KNN algorithm and draw the K-nearest neighbors
-    const k = 3; // Replace with your desired K value
+    const k = 7; // Replace with your desired K value
     drawKNearestNeighbors({ lat: 40.7128, lng: -74.006 }, k);
+
   };
 
   const drawKNearestNeighbors = (clickedPoint, k) => {
@@ -121,15 +152,16 @@ const MyMap = () => {
     const map = useMapEvent("click", () => {
       //map.setView([50.5, 30.5], map.getZoom())
       if (bit) {
-        const newEdges = [
+        const testEdges = [
           { lat: 40.8959, lng: -74.2918 },
           { lat: 40.77545, lng: -74.3516 },
           { lat: 40.478, lng: -74.4611 },
           { lat: 40.9934, lng: -74.3249 },
           { lat: 40.93552, lng: -74.49518 },
           { lat: 41.06945, lng: -74.15562 },
+          {lat: 40.9427, lng: -74.46155},
         ];
-        setEdges(newEdges);
+        setEdges(testEdges);
         handleLeftClick();
         console.log(edges);
         setTime(0.1);
@@ -137,6 +169,30 @@ const MyMap = () => {
     });
     return null;
   }
+  function LocationMarker() {
+  const [position, setPosition] = useState([0,0])
+  const map = useMapEvents({
+    click() {
+      map.locate();
+
+    },
+    locationfound(e) {
+      setPosition(e.latlng);
+      //map.flyTo(e.latlng, map.getZoom());
+    },
+  });
+  //map.flyTo(position, map.getZoom());
+  console.log(position);
+  let con1 = position[0] <= 39.9;
+  let con2 = position[0] >= 19.3;
+  let con3 = position[1] <= -80.0;
+  let con4 = position[1] >= -85.6;
+  return (con1 && con2 && con3 && con4) ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
+}
   return (
     <MapContainer
       center={mapCenter}
@@ -189,6 +245,7 @@ const MyMap = () => {
         </CircleMarker>
       ))}
       <MyComponent />
+      <LocationMarker/>
       {edges.map((edge, index) => (
         <Polyline
           key={index}
@@ -199,7 +256,18 @@ const MyMap = () => {
           color="blue"
         />
       ))}
+      {testing.map((edge, index) => (
+        <Polyline
+          key={index}
+          positions={[
+            [edge.lat, edge.lng],
+            [40.7128, -74.006],
+          ]}
+          color="green"
+        />
+      ))}
     </MapContainer>
+
   );
 };
 
